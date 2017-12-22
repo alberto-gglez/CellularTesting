@@ -1,2 +1,0 @@
-# CellularTesting
-Cellular automata framework
