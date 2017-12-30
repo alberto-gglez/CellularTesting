@@ -47,19 +47,10 @@ export default class Automaton extends React.Component {
 		clearInterval(this.interval);
 	}
 
-	checkValid(...coords) {
-		const res = coords.every((coord, i) => {
-			if (coord.length > 1) {
-				return (
-					coord[0] >= 0 &&
-					coord[0] < this.state.data.length &&
-					coord[1] >= 0 &&
-					coord[1] < this.state.data[i].length
-				);
-			}
-			return coord[0] >= 0 && coord[0] < this.state.data.length;
+	checkValid(coords) {
+		return coords.every(coord => {
+			return coord >= 0 && coord < this.state.data.length;
 		});
-		return res;
 	}
 
 	checkAlive(...coords) {

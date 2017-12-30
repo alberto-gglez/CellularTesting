@@ -37,9 +37,7 @@ export default class Automaton1D extends React.Component {
 		return (
 			<div>
 				Generations: {generations}
-				<ControlPanel>
-					<Automaton data={data} evalFn={this.evalFn} delay={100} ref={this.getRef} />
-				</ControlPanel>
+				<Automaton data={data} evalFn={this.evalFn} delay={100} ref={this.getRef} />
 			</div>
 		);
 	}

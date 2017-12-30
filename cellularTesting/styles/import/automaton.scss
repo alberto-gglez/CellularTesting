@@ -1,5 +1,4 @@
 .automaton {
-  width: fit-content;
 
   .board {
     .row {
@@ -8,7 +7,7 @@
       .cell {
         width: 10px;
         height: 10px;
-        border: 1px solid blue;
+        border: 1px solid lightgray;
 
         &.alive {
           background-color: black;
