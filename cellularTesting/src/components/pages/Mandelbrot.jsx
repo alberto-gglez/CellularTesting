@@ -59,7 +59,7 @@ export default class Mandelbrot extends React.Component {
 			i++;
 		}
 
-		return { border: '0', backgroundColor: COLORS[i], width: '5px', height: '5px' };
+		return { border: '0', backgroundColor: COLORS[i], width: '2px', height: '2px' };
 	}
 
 	render() {
