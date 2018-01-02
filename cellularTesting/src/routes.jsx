@@ -4,38 +4,47 @@ import App from './app';
 import Index from './components/pages/Index';
 import Automaton1D from './components/pages/Automaton1D';
 import Automaton2D from './components/pages/Automaton2D';
+import Mandelbrot from './components/pages/Mandelbrot';
 import 'styles/index.scss';
 
 const Routes = () => (
-  <Router>
-    <div>
-      <Route
-        exact
-        path="/"
-        render={() => (
-          <App>
-            <Index />
-          </App>
-        )}
-      />
-      <Route
-        path="/1d"
-        render={() => (
-          <App>
-            <Automaton1D />
-          </App>
-        )}
-      />
-      <Route
-        path="/2d"
-        render={() => (
-          <App>
-            <Automaton2D />
-          </App>
-        )}
-      />
-    </div>
-  </Router>
+	<Router>
+		<div>
+			<Route
+				exact
+				path="/"
+				render={() => (
+					<App>
+						<Index />
+					</App>
+				)}
+			/>
+			<Route
+				path="/1d"
+				render={() => (
+					<App>
+						<Automaton1D />
+					</App>
+				)}
+			/>
+			<Route
+				path="/2d"
+				render={() => (
+					<App>
+						<Automaton2D />
+					</App>
+				)}
+			/>
+			<Route
+				path="/mandelbrot"
+				render={() => (
+					<App>
+						<Mandelbrot />
+					</App>
+				)}
+			/>
+		</div>
+	</Router>
 );
 
 export default Routes;

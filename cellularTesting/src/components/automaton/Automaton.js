@@ -20,15 +20,17 @@ export default class Automaton extends React.Component {
 	}
 
 	componentWillMount() {
-		this.interval = setInterval(() => {
-			if (this.props.evalFn) {
-				const newData = this.iterateData(this.state.data);
-				this.setState(
-					{ data: newData, generations: this.state.generations + 1 },
-					this.updateSubscriptions
-				);
-			}
-		}, this.props.delay || 1000);
+		if (!this.props.noLoop) {
+			this.interval = setInterval(() => {
+				if (this.props.evalFn) {
+					const newData = this.iterateData(this.state.data);
+					this.setState(
+						{ data: newData, generations: this.state.generations + 1 },
+						this.updateSubscriptions
+					);
+				}
+			}, this.props.delay || 1000);
+		}
 	}
 
 	updateSubscriptions() {
@@ -47,7 +49,7 @@ export default class Automaton extends React.Component {
 		clearInterval(this.interval);
 	}
 
-	checkValid(coords) {
+	checkValid(...coords) {
 		return coords.every(coord => {
 			return coord >= 0 && coord < this.state.data.length;
 		});
@@ -55,7 +57,7 @@ export default class Automaton extends React.Component {
 
 	checkAlive(...coords) {
 		return (
-			this.checkValid(coords) &&
+			this.checkValid(...coords) &&
 			coords.reduce((data, coord) => {
 				return data[coord];
 			}, this.state.data)
@@ -66,13 +68,13 @@ export default class Automaton extends React.Component {
 		const { data } = this.state;
 		if (data && Array.isArray(data[0])) {
 			this.setState({
-				data: new Array(data.length).map(() =>
-					new Array(data[0].length).map(() => Math.random() > odds)
+				data: [...new Array(data.length)].map(() =>
+					[...new Array(data[0].length)].map(() => Math.random() > odds)
 				)
 			});
 		} else {
 			this.setState({
-				data: new Array(data.length).map(() => Math.random() > odds)
+				data: [...new Array(data.length)].map(() => Math.random() > odds)
 			});
 		}
 	}
