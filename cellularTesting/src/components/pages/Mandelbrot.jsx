@@ -2,10 +2,15 @@ import React from 'react';
 import Automaton from '../automaton/Automaton';
 import colormap from 'colormap';
 
-const LOWER_LIMIT = -2;
-const UPPER_LIMIT = 2;
-const SIZE = 500;
-const CELL_STEP = (UPPER_LIMIT - LOWER_LIMIT) / SIZE;
+const SIZE = 400;
+const V_LOWER_LIMIT = -1.5;
+const V_UPPER_LIMIT = 1.5;
+const V_CELL_STEP = (V_UPPER_LIMIT - V_LOWER_LIMIT) / SIZE;
+
+const H_LOWER_LIMIT = -2;
+const H_UPPER_LIMIT = 1;
+const H_CELL_STEP = (H_UPPER_LIMIT - H_LOWER_LIMIT) / SIZE;
+
 const COLORS = colormap({
 	colormap: 'greens',
 	nshades: 99,
@@ -48,8 +53,8 @@ export default class Mandelbrot extends React.Component {
 	}
 
 	cellStyle(keys) {
-		const [r, im] = keys.map(k => k * CELL_STEP + LOWER_LIMIT);
-		const cn = [im, r];
+		const [r, im] = keys;
+		const cn = [im * H_CELL_STEP + H_LOWER_LIMIT, r * V_CELL_STEP + V_LOWER_LIMIT];
 
 		let tmp = [0, 0];
 		let i = 1;
