@@ -11,9 +11,11 @@ const H_LOWER_LIMIT = -2;
 const H_UPPER_LIMIT = 1;
 const H_CELL_STEP = (H_UPPER_LIMIT - H_LOWER_LIMIT) / SIZE;
 
+const ITERATIONS = 100;
+
 const COLORS = colormap({
 	colormap: 'greens',
-	nshades: 99,
+	nshades: ITERATIONS - 1,
 	format: 'hex',
 	alpha: 1
 });
@@ -59,7 +61,7 @@ export default class Mandelbrot extends React.Component {
 		let tmp = [0, 0];
 		let i = 1;
 
-		while (tmp[0] < 2 && i < 100) {
+		while (tmp[0] < 2 && i < ITERATIONS) {
 			tmp = this.addComplex(this.squareComplex(tmp), cn);
 			i++;
 		}
