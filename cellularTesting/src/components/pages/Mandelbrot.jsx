@@ -64,7 +64,6 @@ export default class Mandelbrot extends React.Component {
 
 	render() {
 		const { data } = this.state;
-		console.log('called with data', data ? data.length : null);
 		return (
 			<div>
 				<Automaton
