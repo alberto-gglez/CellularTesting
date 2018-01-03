@@ -1,17 +1,18 @@
 import React from 'react';
-import Automaton from '../automaton/Automaton';
 import colormap from 'colormap';
 
-const SIZE = 400;
+const BOARD_SIZE = 1000;
+const CELL_SIZE = 1;
+
 const V_LOWER_LIMIT = -1.5;
 const V_UPPER_LIMIT = 1.5;
-const V_CELL_STEP = (V_UPPER_LIMIT - V_LOWER_LIMIT) / SIZE;
+const V_CELL_STEP = (V_UPPER_LIMIT - V_LOWER_LIMIT) / BOARD_SIZE;
 
 const H_LOWER_LIMIT = -2;
 const H_UPPER_LIMIT = 1;
-const H_CELL_STEP = (H_UPPER_LIMIT - H_LOWER_LIMIT) / SIZE;
+const H_CELL_STEP = (H_UPPER_LIMIT - H_LOWER_LIMIT) / BOARD_SIZE;
 
-const ITERATIONS = 100;
+const ITERATIONS = 200;
 
 const COLORS = colormap({
 	colormap: 'greens',
@@ -19,28 +20,22 @@ const COLORS = colormap({
 	format: 'hex',
 	alpha: 1
 });
-COLORS.push('black');
+COLORS.push('#000000');
 
 export default class Mandelbrot extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			data: [...new Array(SIZE)].map(() => {
-				return [...new Array(SIZE)].map(() => true);
+			data: [...new Array(BOARD_SIZE)].map(() => {
+				return [...new Array(BOARD_SIZE)].map(() => true);
 			})
 		};
-		this.evalFn = this.evalFn.bind(this);
-		this.getRef = this.getRef.bind(this);
-		this.cellStyle = this.cellStyle.bind(this);
 	}
 
-	evalFn() {
-		return true;
-	}
-
-	getRef(ref) {
-		this.automaton = ref;
+	componentDidMount() {
+		const ctx = this.refs.canvas.getContext('2d');
+		this.renderCells(ctx, this.state.data);
 	}
 
 	addComplex(c1, c2) {
@@ -54,33 +49,37 @@ export default class Mandelbrot extends React.Component {
 		return [r * r - i * i, r * i + r * i];
 	}
 
-	cellStyle(keys) {
+	getCellColor(keys) {
 		const [r, im] = keys;
 		const cn = [im * H_CELL_STEP + H_LOWER_LIMIT, r * V_CELL_STEP + V_LOWER_LIMIT];
 
 		let tmp = [0, 0];
 		let i = 1;
 
-		while (tmp[0] < 2 && i < ITERATIONS) {
+		while ((tmp[0] * tmp[0] + tmp[1] * tmp[1]) < 4 && i < ITERATIONS) {
 			tmp = this.addComplex(this.squareComplex(tmp), cn);
 			i++;
 		}
 
-		return { border: '0', backgroundColor: COLORS[i], width: '2px', height: '2px' };
+		return COLORS[i - 1];
+	}
+
+	renderCells(ctx, cell, keys = []) {
+		if (Array.isArray(cell)) {
+			cell.map((c, i) => this.renderCells(ctx, c, [...keys, i]));
+		} else {
+			const cellColor = this.getCellColor(keys);
+			ctx.beginPath();
+			ctx.rect(keys[1] * CELL_SIZE, keys[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+			ctx.fillStyle = cellColor;
+			ctx.fill();
+		}
 	}
 
 	render() {
-		const { data } = this.state;
 		return (
 			<div>
-				<Automaton
-					noLoop
-					data={data}
-					evalFn={this.evalFn}
-					getCellStyle={this.cellStyle}
-					delay={100}
-					ref={this.getRef}
-				/>
+				<canvas width={BOARD_SIZE * CELL_SIZE} height={BOARD_SIZE * CELL_SIZE} ref="canvas" />
 			</div>
 		);
 	}

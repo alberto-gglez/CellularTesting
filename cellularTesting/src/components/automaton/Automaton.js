@@ -13,6 +13,7 @@ export default class Automaton extends React.Component {
 		this.turnsAlive = [];
 		this.subscriptions = [];
 
+		this.renderContent = this.renderContent.bind(this);
 		this.renderCells = this.renderCells.bind(this);
 		this.checkValid = this.checkValid.bind(this);
 		this.checkAlive = this.checkAlive.bind(this);
@@ -80,7 +81,6 @@ export default class Automaton extends React.Component {
 	}
 
 	iterateData(data, coords = []) {
-		// console.log('iterateData', coords);
 		if (Array.isArray(data)) {
 			return data.map((d, i) => this.iterateData(d, [...coords, i]));
 		} else {
@@ -97,7 +97,6 @@ export default class Automaton extends React.Component {
 	}
 
 	renderCells(cell, keys = []) {
-		// console.log('renderCells', cell, keys);
 		if (Array.isArray(cell)) {
 			if (Array.isArray(cell[0])) {
 				return cell.map((c, i) => this.renderCells(c, [...keys, i]));
@@ -114,15 +113,14 @@ export default class Automaton extends React.Component {
 		return <Cell key={keys.toString()} style={cellStyle} alive={cell} />;
 	}
 
-	render() {
+	renderContent() {
 		const { data } = this.state;
-		const renderCells = this.props.renderCells || this.renderCells;
 		const boardStyle = this.props.boardStyle || null;
-		//console.log('data', data);
-		return (
-			<div className="automaton">
-				<Board style={boardStyle}>{renderCells(data)}</Board>
-			</div>
-		);
+		return <Board style={boardStyle}>{this.renderCells(data)}</Board>;
+	}
+
+	render() {
+		const renderContent = this.props.renderFn || this.renderContent;
+		return <div className="automaton">{this.props.children || renderContent()}</div>;
 	}
 }
