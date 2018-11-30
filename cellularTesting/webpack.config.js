@@ -7,7 +7,7 @@ var DashboardPlugin = require('webpack-dashboard/plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const HOST = process.env.HOST || "127.0.0.1";
-const PORT = process.env.PORT || "8888";
+const PORT = process.env.PORT || "3000";
 
 loaders.push({
   test: /\.scss$/,
@@ -53,7 +53,7 @@ module.exports = {
       filename: 'style.css',
       allChunks: true
     }),
-    new DashboardPlugin(),
+    new DashboardPlugin({ port: 3000 }),
     new HtmlWebpackPlugin({
       template: './src/template.html',
       files: {

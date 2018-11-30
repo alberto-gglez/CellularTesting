@@ -1,6 +1,5 @@
 import React from 'react';
-import Automaton from '../automaton/Automaton';
-import ControlPanel from '../utils/ControlPanel';
+import Automaton from '../../components/automaton/Automaton';
 
 export default class Automaton2D extends React.Component {
 	constructor(props) {

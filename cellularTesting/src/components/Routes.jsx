@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import App from './app';
-import Index from './components/pages/Index';
-import Automaton1D from './components/pages/Automaton1D';
-import Automaton2D from './components/pages/Automaton2D';
-import Mandelbrot from './components/pages/Mandelbrot';
+import App from '../app';
+import Index from '../pages/Index';
+import Automaton1D from '../pages/react/Automaton1D';
+import Automaton2D from '../pages/react/Automaton2D';
+import Mandelbrot from '../pages/webgl/Mandelbrot';
 import 'styles/index.scss';
 
 const Routes = () => (
