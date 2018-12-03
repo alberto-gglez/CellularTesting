@@ -13,10 +13,10 @@ ReactDOM.render(
 // Hot Module Replacement API
 if (module.hot) {
 	module.hot.accept('./app', () => {
-		const NextApp = require('./app').default;
+		const App = require('./app').default;
 		ReactDOM.render(
 			<AppContainer>
-				<NextApp />
+				<App />
 			</AppContainer>,
 			document.getElementById('app')
 		);

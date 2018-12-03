@@ -1,0 +1,34 @@
+#automaton1dContainer {
+  display: flex;
+  flex-direction: column;
+
+  #automaton1d {
+    text-align: center;
+    align-self: center;
+    margin-top: 10px;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin: 0 10px;
+
+    border: 1px solid rgb(77, 77, 77);
+    border-top: 0;
+    background-color: lightgray;
+
+    padding: 4px;
+
+    .group {
+      max-width: 200px;
+      border: 1px solid gray;
+      padding: 5px;
+    }
+
+    :not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}

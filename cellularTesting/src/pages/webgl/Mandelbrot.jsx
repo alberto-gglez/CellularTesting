@@ -1,4 +1,5 @@
 import React from 'react';
+import MandelbrotToolbar from '../../components/toolBars/MandelbrotToolbar';
 import colormap from 'colormap';
 
 const BOARD_SIZE = 800;
@@ -45,12 +46,14 @@ export default class Mandelbrot extends React.Component {
 			hCellStep: H_CELL_STEP
 		};
 
+		this.canvasRef = React.createRef();
+
 		this.onMouseMove = this.onMouseMove.bind(this);
 		this.onClick = this.onClick.bind(this);
 	}
 
 	componentDidMount() {
-		this.ctx = this.refs.canvas.getContext('2d');
+		this.context = this.canvasRef.current.getContext('2d');
 		this.renderCells(this.state.data);
 	}
 
@@ -86,15 +89,17 @@ export default class Mandelbrot extends React.Component {
 			cell.forEach((c, i) => this.renderCells(c, [...keys, i]));
 		} else {
 			const cellColor = this.getCellColor(keys);
-			this.ctx.beginPath();
-			this.ctx.rect(keys[1] * CELL_SIZE, keys[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-			this.ctx.fillStyle = cellColor;
-			this.ctx.fill();
+			this.context.beginPath();
+			this.context.rect(keys[1] * CELL_SIZE, keys[0] * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+			this.context.fillStyle = cellColor;
+			this.context.fill();
 		}
 	}
 
 	onMouseMove(e) {
-		const { nativeEvent: { pageX, pageY } } = e;
+		const {
+			nativeEvent: { pageX, pageY }
+		} = e;
 		if (pageX >= ZOOM_MIN_X && pageY >= ZOOM_MIN_Y) {
 			const zoomX = Math.min(
 				Math.max(pageX - ZOOM_ZONE_SIZE / 2, ZOOM_MIN_X),
@@ -119,10 +124,10 @@ export default class Mandelbrot extends React.Component {
 		console.log('click', x1, x2, y1, y2);
 		// multiplicar directamente por el cellStep actual y luego actualizarlo
 		// console.log('click', x1 * , x2, y1, y2);
-		
 	}
 
 	render() {
+		/*
 		const { zoomX, zoomY } = this.state;
 		const zoomZoneStyle = {
 			width: `${ZOOM_ZONE_SIZE}px`,
@@ -130,23 +135,29 @@ export default class Mandelbrot extends React.Component {
 			left: `${zoomX}px`,
 			top: `${zoomY}px`
 		};
+		*/
 
 		return (
-			<div className="mandelbrot">
-				<canvas
-					width={BOARD_SIZE * CELL_SIZE}
-					height={BOARD_SIZE * CELL_SIZE}
-					onMouseMove={this.onMouseMove}
-					ref="canvas"
-				/>
-				{zoomX !== null && zoomY !== null ? (
+			<div id="mandelbrot">
+				<MandelbrotToolbar />
+				<div id="canvasWrapper">
+					<canvas
+						width={BOARD_SIZE * CELL_SIZE}
+						height={BOARD_SIZE * CELL_SIZE}
+						// onMouseMove={this.onMouseMove}
+						ref={this.canvasRef}
+					/>
+				</div>
+				{/*
+					zoomX !== null && zoomY !== null ? (
 					<div
 						className="zoomZone"
 						style={zoomZoneStyle}
 						onMouseMove={this.onMouseMove}
 						onClick={this.onClick}
 					/>
-				) : null}
+				) : null
+					*/}
 			</div>
 		);
 	}

@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
 @import 'import/main';
+@import 'import/toolbar';
+@import 'import/defaultLayout';
+@import 'import/mandelbrotLayout';
+@import 'import/navigation';
+@import 'import/home';
 @import 'import/automaton';
+@import 'import/automaton1d';
+@import 'import/automaton2d';
 @import 'import/mandelbrot';

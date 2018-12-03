@@ -1,4 +1,16 @@
-.mandelbrot {
+#mandelbrot {
+  #canvasWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .toolBar {
+    align-self: initial;
+    background-color: red;
+  }
+
   .zoomZone {
     border: 1px solid white;
     position: absolute;

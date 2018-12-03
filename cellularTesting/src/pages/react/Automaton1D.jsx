@@ -1,5 +1,6 @@
 import React from 'react';
 import Automaton from '../../components/automaton/Automaton';
+import AutomatonToolbar from '../../components/toolBars/AutomatonToolbar';
 
 export default class Automaton1D extends React.Component {
 	constructor(props) {
@@ -34,9 +35,25 @@ export default class Automaton1D extends React.Component {
 	render() {
 		const { data, generations } = this.state;
 		return (
-			<div>
-				Generations: {generations}
-				<Automaton data={data} evalFn={this.evalFn} delay={100} ref={this.getRef} />
+			<div id="automaton1dContainer">
+				<AutomatonToolbar
+					onStart={() => {
+						console.log('outside onstart');
+					}}
+					onPause={() => {
+						console.log('outside onPause');
+					}}
+					onStop={() => {
+						console.log('outside onStop');
+					}}
+					onOptionChange={() => {
+						console.log('onOptionChange');
+					}}
+				/>
+				<div id="automaton1d">
+					Generations: {generations}
+					<Automaton data={data} evalFn={this.evalFn} delay={100} ref={this.getRef} />
+				</div>
 			</div>
 		);
 	}

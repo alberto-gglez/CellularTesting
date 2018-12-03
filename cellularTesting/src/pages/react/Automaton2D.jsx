@@ -5,8 +5,8 @@ export default class Automaton2D extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: [...new Array(100)].map(() => {
-				return [...new Array(100)].map(() => Math.random() > 0.5);
+			data: [...new Array(75)].map(() => {
+				return [...new Array(75)].map(() => Math.random() > 0.5);
 			}),
 			generations: 0
 		};
@@ -49,7 +49,7 @@ export default class Automaton2D extends React.Component {
 	render() {
 		const { data, generations } = this.state;
 		return (
-			<div>
+			<div id="automaton2d">
 				Generations: {generations}
 				<Automaton data={data} evalFn={this.evalFn} delay={100} ref={this.getRef} />
 			</div>

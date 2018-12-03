@@ -1,7 +1,7 @@
 import React from 'react';
-import Navigation from './components/Navigation';
 import 'normalize.css';
 import 'styles/index.scss';
+import Navigation from './components/Navigation';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -12,6 +12,7 @@ export default class App extends React.Component {
 
 	componentWillMount() {
 		// window.addEventListener('resize', this.onResize);
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
 	}
 
 	componentWillUnmount() {
@@ -25,8 +26,8 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
+				<div id="content">
 				<Navigation />
-				<div className="content">
 					{React.Children.map(this.props.children, c =>
 						React.cloneElement(c, { height: this.state.height })
 					)}

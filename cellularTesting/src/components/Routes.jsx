@@ -1,11 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import 'styles/index.scss';
 import App from '../app';
-import Index from '../pages/Index';
+
+import DefaultLayout from './layouts/DefaultLayout';
+import MandelbrotLayout from './layouts/MandelbrotLayout';
+
+import Home from '../pages/Home';
 import Automaton1D from '../pages/react/Automaton1D';
 import Automaton2D from '../pages/react/Automaton2D';
 import Mandelbrot from '../pages/webgl/Mandelbrot';
-import 'styles/index.scss';
 
 const Routes = () => (
 	<Router>
@@ -15,31 +19,39 @@ const Routes = () => (
 				path="/"
 				render={() => (
 					<App>
-						<Index />
+						<DefaultLayout>
+							<Home />
+						</DefaultLayout>
 					</App>
 				)}
 			/>
 			<Route
-				path="/1d"
+				path="/react/1d"
 				render={() => (
 					<App>
-						<Automaton1D />
+						<DefaultLayout>
+							<Automaton1D />
+						</DefaultLayout>
 					</App>
 				)}
 			/>
 			<Route
-				path="/2d"
+				path="/react/2d"
 				render={() => (
 					<App>
-						<Automaton2D />
+						<DefaultLayout>
+							<Automaton2D />
+						</DefaultLayout>
 					</App>
 				)}
 			/>
 			<Route
-				path="/mandelbrot"
+				path="/webgl/mandelbrot"
 				render={() => (
 					<App>
-						<Mandelbrot />
+						<MandelbrotLayout>
+							<Mandelbrot />
+						</MandelbrotLayout>
 					</App>
 				)}
 			/>
